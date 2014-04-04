@@ -29,48 +29,22 @@ namespace Number;
 
 class Number
 {
-    /**
-     * @var int|float
-     */
-    private $number;
 
     /**
      * @var int
      */
     private static $decimals = 0;
-
     /**
      * @var string
      */
     private static $decimalPoint = '.';
-
     /**
      * @var string
      */
     private static $thousandsSeparator = ',';
 
-    /**
-     * Contructor
-     *
-     * @param $number
-     * @throws \InvalidArgumentException
-     */
-    public function __construct($number)
+    private function __construct()
     {
-        if (!is_numeric($number)) {
-            throw new \InvalidArgumentException("Value in not numeric");
-        }
-        $this->number = $number;
-    }
-
-    /**
-     * Sets decimal point
-     *
-     * @param string $decimalPoint
-     */
-    public static function setDecimalPoint($decimalPoint)
-    {
-        self::$decimalPoint = $decimalPoint;
     }
 
     /**
@@ -84,13 +58,13 @@ class Number
     }
 
     /**
-     * Sets number of decimals
+     * Sets decimal point
      *
-     * @param int $decimals
+     * @param string $decimalPoint
      */
-    public static function setDecimals($decimals)
+    public static function setDecimalPoint($decimalPoint)
     {
-        self::$decimals = $decimals;
+        self::$decimalPoint = $decimalPoint;
     }
 
     /**
@@ -104,33 +78,13 @@ class Number
     }
 
     /**
-     * Sets the number value
+     * Sets number of decimals
      *
-     * @param float|int $number
+     * @param int $decimals
      */
-    public function setNumber($number)
+    public static function setDecimals($decimals)
     {
-        $this->number = $number;
-    }
-
-    /**
-     * Gets the number value
-     *
-     * @return float|int
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * Sets the thousands separator
-     *
-     * @param string $thousandsSeparator
-     */
-    public static function setThousandsSeparator($thousandsSeparator)
-    {
-        self::$thousandsSeparator = $thousandsSeparator;
+        self::$decimals = $decimals;
     }
 
     /**
@@ -144,23 +98,13 @@ class Number
     }
 
     /**
-     * Gets the integer part of the number
+     * Sets the thousands separator
      *
-     * @return int
+     * @param string $thousandsSeparator
      */
-    public function getInt()
+    public static function setThousandsSeparator($thousandsSeparator)
     {
-        return (int)$this->number;
-    }
-
-    /**
-     * Gets the number as float
-     *
-     * @return float
-     */
-    public function getFloat()
-    {
-        return (float)$this->number;
+        self::$thousandsSeparator = $thousandsSeparator;
     }
 
     /**
@@ -188,12 +132,26 @@ class Number
     }
 
     /**
-     * Magic function: toString
+     * Get float value of a variable
      *
-     * @return string
+     * @param mixed $var
+     * @return float
      */
-    public function __toString()
+    public function float($var)
     {
-        return self::format($this->number);
+        return floatval($var);
     }
+
+    /**
+     * Get the integer value of a variable
+     *
+     * @param mixed $var
+     * @param int $base
+     * @return int
+     */
+    public function int($var, $base = 10)
+    {
+        return intval($var, $base);
+    }
+
 }
